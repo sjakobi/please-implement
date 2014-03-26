@@ -1,1 +1,9 @@
+*.pyc
+*.swp
+
+.ropeproject
+.venv
+
+agithub.py
 google_appengine
+config.py
