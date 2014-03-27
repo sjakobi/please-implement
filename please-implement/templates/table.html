@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>please implement</title>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td></td>
+      {% for language in table.column_names %}
+        <td> {{ language }} </td>
+      {% endfor %}
+    </tr>
+    {% for (ex, row) in zip(table.exercises, table.rows) %}
+      <tr>
+        <td>
+          {{ ex }},
+          (<a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.md">md</a>,
+          <a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.yml">yml</a>)
+        </td>
+        {% for implementation in row %}
+          <td>
+            {% if implementation %}
+            <a href=https://github.com/exercism/{{ implementation }}/tree/master/{{ ex }}>done</a>
+            {% else %}
+              None
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+</body>
+
+</html>
