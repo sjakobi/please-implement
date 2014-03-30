@@ -2,34 +2,41 @@
 <html>
 <head>
   <title>please implement</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 
 <body>
-  <table>
+  <table class="table table-bordered table-striped">
+    <thead>
     <tr>
-      <td></td>
-      {% for language in table.column_names %}
-        <td> {{ language }} </td>
+      <th></th>
+      {% for repo, language in table.languages.items() %}
+        <th scope="col">
+          <a href="/{{ repo }}">{{ language }}</a>
+        </th>
       {% endfor %}
     </tr>
-    {% for (ex, row) in zip(table.exercises, table.rows) %}
+    </thead>
+    <tbody>
+    {% for ex in table.rows %}
       <tr>
-        <td>
-          {{ ex }},
+        <th scope="row">
+          {{ ex }}
           (<a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.md">md</a>,
           <a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.yml">yml</a>)
-        </td>
-        {% for implementation in row %}
+        </th>
+        {% for repo in table.languages %}
           <td>
-            {% if implementation %}
-            <a href=https://github.com/exercism/{{ implementation }}/tree/master/{{ ex }}>done</a>
+            {% if ex in table.exercises[repo] %}
+              <a href=https://github.com/exercism/{{ repo }}/tree/master/{{ ex }}>done</a>
             {% else %}
-              None
+              do it!
             {% endif %}
           </td>
         {% endfor %}
       </tr>
     {% endfor %}
+    </tbody>
   </table>
 </body>
 

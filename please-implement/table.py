@@ -1,37 +1,37 @@
-#from google.appengine.api import memcache, urlfetch
 from collections import namedtuple
 
-from data import (all_exercises, courteously_do, get_exercises_in,
-                  get_language_list, get_real_language_name)
+from data import get_all_exercises, get_exercises_in, get_languages
 
 
-Table = namedtuple('Table', 'language column_names exercises rows')
+Table = namedtuple('Table', 'repo languages rows exercises')
 
 
-def update():
-    # get x-common
-    # get list of languages
-    # call update_lang() for all languages
-    pass
-
-
-def table_for(language):
-    pass
+#TODO: handle exercises that shall not be implemented in a language
+def table_for(repo):
+    all_exercises = get_all_exercises()
+    repo2real_name = get_languages()
+    exercises = {repo: get_exercises_in(repo)
+                 for repo in repo2real_name}
+    rows = sorted(all_exercises - exercises[repo],
+                  key=lambda ex: sum(ex in implemented
+                                     for (r, implemented) in exercises.items()
+                                     if r != repo),
+                  reverse=True)
+    return Table(repo=repo,
+                 languages=repo2real_name,
+                 rows=rows,
+                 exercises=exercises)
 
 
 def front_table():
-    # needs to also handle exercises that shall not be implemented in
-    # a given language
-    exercises = sorted(all_exercises())
-    languages = get_language_list()
-    exercises_in = {lang: get_exercises_in(lang)
-                    for lang in languages}
-    real_language_names = [get_real_language_name(lang)
-                           for lang in languages]
-    rows = [[lang if (ex in exercises_in[lang]) else None
-             for lang in languages]
-            for ex in exercises]
-    return Table(language=None,
-                 column_names=real_language_names,
-                 exercises=exercises,
-                 rows=rows)
+    repo2real_name = get_languages()
+    exercises = {repo: get_exercises_in(repo)
+                 for repo in repo2real_name}
+    rows = sorted(get_all_exercises(),
+                  key=lambda x: sum(x in implemented
+                                    for (r, implemented) in exercises.items()),
+                  reverse=True)
+    return Table(repo=None,
+                 languages=repo2real_name,
+                 rows=rows,
+                 exercises=exercises)

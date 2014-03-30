@@ -1,11 +1,10 @@
 import os
-from logging import warning
 
 import jinja2
 import webapp2
 
+from data import get_exercises_in, get_all_exercises, get_languages
 from table import front_table, table_for
-from data import update, update_all
 
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
@@ -22,38 +21,27 @@ class Handler(webapp2.RequestHandler):
 
 class TablePage(Handler):
 
-    def get(self, language):
-        #warning('tablepage, language=' + repr(language))
-        if not language:
-            language = ''
-        if language:
-            self.response.write('page for ' + repr(language))
-        else:
-            table = front_table()
-            #self.response.write(repr(table))
-            self.render(table)
-
-        # validate language here?
-        #if not language:
-        #    self.render(front_table())
-        #self.render(table_for(language))
+    #TODO: validate repo
+    def get(self, repo):
+        table = table_for(repo.lower()) if repo else front_table()
+        self.render(table)
 
 
 class UpdatePage(webapp2.RequestHandler):
 
-    def get(self, language=None):
-        #warning('updatepage, language=' + repr(language))
-        if not language:
-            language = ''
+    #TODO: validate repo
+    def get(self, repo):
+        get_all_exercises(update=True)
+        if repo:
+            get_exercises_in(repo, update=True)
+        else:
+            for r in get_languages(update=True):
+                get_exercises_in(r, update=True)
 
-        if not language:
-            update_all
-        else:   # handle unknown languages?
-            update(language)
-        self.redirect('/' + language)
+        self.redirect("/" + repo)
 
 
 REGEX = r'([a-z0-9-]*)/?'
-app = webapp2.WSGIApplication([('/update/' + REGEX, UpdatePage),
+app = webapp2.WSGIApplication([(r'/update/?' + REGEX, UpdatePage),
                                (r'/' + REGEX, TablePage)],
                               debug=True)
