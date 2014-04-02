@@ -7,13 +7,14 @@ from inappropriate import DONT_IMPLEMENT
 Table = namedtuple('Table', 'repo languages rows exercises')
 
 
-#TODO: handle exercises that shall not be implemented in a language
 def table_for(repo):
     all_exercises = get_all_exercises()
     repo2real_name = get_languages()
     exercises = {repo: get_exercises_in(repo)
                  for repo in repo2real_name}
-    rows = sorted(all_exercises - exercises[repo] - DONT_IMPLEMENT[repo],
+    rows = sorted(all_exercises
+                  - exercises[repo]
+                  - DONT_IMPLEMENT.get(repo, set()),
                   key=lambda ex: sum(ex in implemented
                                      for (r, implemented) in exercises.items()
                                      if r != repo),
