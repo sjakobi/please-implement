@@ -52,7 +52,7 @@ def get_languages(update=False):
     languages = memcache.get('languages')
 
     if languages is None or update:
-        status, request = gh().users.exercism.repos.get()
+        status, request = gh().users.exercism.repos.get(per_page='100')
         if status == 200:
             repos = (obj['name']
                      for obj in request
