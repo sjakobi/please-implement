@@ -6,14 +6,14 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 
-<body>
+<body style="font-size: 110%">
 
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
-        <th><a href="/"><span class="glyphicon glyphicon-home"></span></a></th>
+      <th style="text-align: center"><a href="/"><span class="glyphicon glyphicon-home"></span></a></th>
       {% for repo, language in table.languages.items() %}
-        <th scope="col">
+        <th scope="col" style="white-space: nowrap;">
           <a href="/{{ repo }}">{{ language }}</a>
         </th>
       {% endfor %}
@@ -23,16 +23,16 @@
     {% for ex in table.rows %}
       <tr>
         <th scope="row">
-          {{ ex }}
+          {{ ex }}<br>
           (<a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.md">md</a>,
           <a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.yml">yml</a>)
         </th>
         {% for repo in table.languages %}
-          <td>
+          <td style="text-align: center; vertical-align: middle">
             {% if ex in table.exercises[repo] %}
-              <a href="https://github.com/exercism/{{ repo }}/tree/master/{{ ex }}">done</a>
+              <a href="https://github.com/exercism/{{ repo }}/tree/master/{{ ex }}"><span class="glyphicon glyphicon-ok"></span></a>
             {% else %}
-              do it!
+              <span class="glyphicon glyphicon-remove" title="Implement me!"></span>
             {% endif %}
           </td>
         {% endfor %}
@@ -42,14 +42,23 @@
   </table>
 
   <div id="footer">
-    <div class="container">
-      <p>
+    <div class="row text-muted" style="text-align: center">
+      <div class="col-md-4">
+        <span class="glyphicon glyphicon-home"></span>,
+        <span class="glyphicon glyphicon-ok"></span>
+        and <span class="glyphicon glyphicon-remove"></span>
+        by <a href="http://glyphicons.com">Glyphicons</a>
+      </div>
+
+      <div class="col-md-4">
         <a href="/">please implement</a>: exercises yet to be implemented for <a href=http://exercism.io>exercism.io</a>
-        &middot;
+      </div>
+
+      <div class="col-md-4">
         <a href="https://github.com/sjakobi/please-implement">source</a>
-        &middot;
+        ·
         <a href="mailto:simon.jakobi@gmail.com">contact</a>
-      </p>
+      </div>
     </div>
   </div>
 
