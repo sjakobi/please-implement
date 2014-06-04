@@ -24,7 +24,7 @@
       <tr>
         <th scope="row">
           {{ ex }}<br>
-          (<a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.md">md</a>,
+          (<a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.md">md</a>,{{ " " }}
           <a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.yml">yml</a>)
         </th>
         {% for repo in table.languages %}
@@ -44,19 +44,19 @@
   <div id="footer">
     <div class="row text-muted" style="text-align: center">
       <div class="col-md-4">
-        <span class="glyphicon glyphicon-home"></span>,
-        <span class="glyphicon glyphicon-ok"></span>
-        and <span class="glyphicon glyphicon-remove"></span>
-        by <a href="http://glyphicons.com">Glyphicons</a>
+        <span class="glyphicon glyphicon-home"></span>, {{ " " }}
+        <span class="glyphicon glyphicon-ok"></span> {{ " " }}
+        and {{ " " }} <span class="glyphicon glyphicon-remove"></span> {{ " " }}
+        by {{ " " }} <a href="http://glyphicons.com">Glyphicons</a>
       </div>
 
       <div class="col-md-4">
-        <a href="/">please implement</a>: exercises yet to be implemented for <a href=http://exercism.io>exercism.io</a>
+        <a href="/">please implement</a>: exercises yet to be implemented for {{ " " }} <a href=http://exercism.io>exercism.io</a>
       </div>
 
       <div class="col-md-4">
         <a href="https://github.com/sjakobi/please-implement">source</a>
-        ·
+        {{ " " }} · {{ " " }}
         <a href="mailto:simon.jakobi@gmail.com">contact</a>
       </div>
     </div>

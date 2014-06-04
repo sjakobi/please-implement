@@ -6,10 +6,11 @@ Built on Google App Engine with the awesome [agithub](http://github.com/jpaugh/a
 
 ## How to run this
 
-Two files are missing in this repo:
+Three files are missing in the `please-implement` folder:
 
-* `please-implement/agithub.py`: Get it [here](http://github.com/jpaugh/agithub).
-* `please-implement/config.py` which should look like this:
+* `agithub.py`: Get it [here](http://github.com/jpaugh/agithub).
+* `jinja2htmlcompress.py`: Get it [here](https://github.com/mitsuhiko/jinja2-htmlcompress).
+* `config.py` which should look like this:
 
   ```Python
   username = 'valid-github-username'

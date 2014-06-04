@@ -9,6 +9,7 @@ from table import front_table, table_for
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
+                               extensions=['jinja2htmlcompress.HTMLCompress'],
                                autoescape=True)
 TABLE_TEMPLATE = JINJA_ENV.get_template('table.html')
 
