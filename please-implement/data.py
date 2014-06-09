@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import json
 import re
 
 from google.appengine.api import memcache
@@ -32,6 +33,27 @@ def get_exercises_in(repo, update=False):
             memcache.set(key, exercises, CACHE_LONG)
 
     return exercises
+
+
+def get_unwanted_exercises_in(repo, update=False):
+    """Return the set of exercises that are listed as "deprecated" or "ignore"
+    in the config.json of the repo.
+    The set may also contain the names of non-exercise directories in the
+    repo.
+
+    If update is True, fetch the config.json and update the memcache value.
+    """
+    key = repo + '_unwanted'
+    unwanted = memcache.get(key)
+
+    if unwanted is None or update:
+        status, request = exercism()[repo].contents["config.json"].get()
+        if status == 200:
+            content = json.loads(request["content"].decode(request["encoding"]))
+            unwanted = set(content["deprecated"] + content["ignore"])
+            memcache.set(key, unwanted, CACHE_LONG)
+
+    return unwanted
 
 
 def get_all_exercises(update=False):

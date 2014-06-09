@@ -3,7 +3,8 @@ import os
 import jinja2
 import webapp2
 
-from data import get_exercises_in, get_all_exercises, get_languages
+from data import (get_exercises_in, get_all_exercises, get_languages,
+                  get_unwanted_exercises_in)
 from table import front_table, table_for
 
 
@@ -35,9 +36,11 @@ class UpdatePage(webapp2.RequestHandler):
         get_all_exercises(update=True)
         if repo:
             get_exercises_in(repo, update=True)
+            get_unwanted_exercises_in(repo, update=True)
         else:
             for r in get_languages(update=True):
                 get_exercises_in(r, update=True)
+                get_unwanted_exercises_in(r, update=True)
 
         self.redirect("/" + repo)
 
