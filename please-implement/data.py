@@ -36,8 +36,8 @@ def get_exercises_in(repo, update=False):
 
 
 def get_unwanted_exercises_in(repo, update=False):
-    """Return the set of exercises that are listed as "deprecated" or "ignore"
-    in the config.json of the repo.
+    """Return the set of exercises that are listed as "deprecated" or
+    "ignored" in the config.json of the repo.
     The set may also contain the names of non-exercise directories in the
     repo.
 
@@ -50,7 +50,7 @@ def get_unwanted_exercises_in(repo, update=False):
         status, request = exercism()[repo].contents["config.json"].get()
         if status == 200:
             content = json.loads(request["content"].decode(request["encoding"]))
-            unwanted = set(content["deprecated"] + content["ignore"])
+            unwanted = set(content["deprecated"] + content["ignored"])
             memcache.set(key, unwanted, CACHE_LONG)
 
     return unwanted
