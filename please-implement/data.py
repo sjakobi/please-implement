@@ -78,8 +78,7 @@ def get_languages(update=False):
         if status == 200:
             repos = (obj['name']
                      for obj in request
-                     if obj['name'].startswith('x')
-                     if not obj['name'].startswith('x-'))
+                     if _is_language_repo(obj['name']))
             languages = OrderedDict((repo, get_real_language_name(repo))
                                     for repo in repos)
             memcache.set('languages', languages, CACHE_LONG)
@@ -101,3 +100,14 @@ def _extract_language_name(readme):
     if not match:
         match = re.search(r'Exercism [Ee]xercises in ([^\n]+)\.?\n', readme)
     return match.group(1)
+
+
+def _is_language_repo(repo):
+    if not repo.lower().startswith("x"):
+        return False
+    status, request = exercism()[repo].contents["config.json"].get()
+    if status != 200:
+        return False
+    content = json.loads(request["content"].decode(request["encoding"]))
+    language = content.get("language", "")
+    return language != ""
