@@ -3,34 +3,52 @@
 
 <head>
   <title>please implement</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 
-<body style="font-size: 110%">
+<body>
 
   <table class="table table-bordered table-hover">
     <thead>
-    <tr>
-      <th style="text-align: center"><a href="/"><span class="glyphicon glyphicon-home"></span></a></th>
-      {% for repo, language in table.languages.items() %}
-        <th scope="col" style="white-space: nowrap;">
-          <a href="/{{ repo }}">{{ language }}</a>
+      <tr>
+        <th>
+          <a href="/"><span class="glyphicon glyphicon-home"></span></a>
         </th>
-      {% endfor %}
-    </tr>
+        {% for repo, language in table.languages.items() %}
+          <th>
+            <a href="/{{ repo }}">{{ language }}</a>
+          </th>
+        {% endfor %}
+      </tr>
     </thead>
+    <tfoot>
+      <tr>
+        <th>
+          <a href="/"><span class="glyphicon glyphicon-home"></span></a>
+        </th>
+        {% for repo, language in table.languages.items() %}
+          <th>
+            <a href="/{{ repo }}">{{ language }}</a>
+          </th>
+        {% endfor %}
+      </tr>
+    </tfoot>
     <tbody>
     {% for ex in table.rows %}
       <tr>
-        <th scope="row">
+        <th>
           {{ ex }}<br>
-          (<a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.md">md</a>,{{ " " }}
+          (<a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.md">md</a>
+          ,{{ " " }}
           <a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.yml">yml</a>)
         </th>
         {% for repo in table.languages %}
-          <td style="text-align: center; vertical-align: middle">
+          <td style="vertical-align: middle">
             {% if ex in table.exercises[repo] %}
-              <a href="https://github.com/exercism/{{ repo }}/tree/master/{{ ex }}"><span class="glyphicon glyphicon-ok"></span></a>
+              <a href="https://github.com/exercism/{{ repo }}/tree/master/{{ ex }}">
+                <span class="glyphicon glyphicon-ok"></span>
+              </a>
             {% else %}
               <span class="glyphicon glyphicon-remove" title="Implement me!"></span>
             {% endif %}
@@ -42,16 +60,21 @@
   </table>
 
   <div id="footer">
-    <div class="row text-muted" style="text-align: center">
+    <div class="row text-muted">
+
       <div class="col-md-4">
         <span class="glyphicon glyphicon-home"></span>, {{ " " }}
         <span class="glyphicon glyphicon-ok"></span> {{ " " }}
-        and {{ " " }} <span class="glyphicon glyphicon-remove"></span> {{ " " }}
-        by {{ " " }} <a href="http://glyphicons.com">Glyphicons</a>
+        and {{ " " }}
+        <span class="glyphicon glyphicon-remove"></span> {{ " " }}
+        by {{ " " }}
+        <a href="http://glyphicons.com">glyphicons</a>
       </div>
 
       <div class="col-md-4">
-        <a href="/">please implement</a>: exercises yet to be implemented for {{ " " }} <a href=http://exercism.io>exercism.io</a>
+        <a href="/">please implement</a>
+        : exercises yet to be implemented for {{ " " }}
+        <a href=http://exercism.io>exercism.io</a>
       </div>
 
       <div class="col-md-4">
@@ -59,6 +82,7 @@
         {{ " " }} · {{ " " }}
         <a href="mailto:simon.jakobi@gmail.com">contact</a>
       </div>
+
     </div>
   </div>
 
