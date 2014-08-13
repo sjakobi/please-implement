@@ -44,7 +44,7 @@
           <a href="https://github.com/exercism/x-common/blob/master/{{ ex }}.yml">yml</a>)
         </th>
         {% for repo in table.languages %}
-          <td style="vertical-align: middle">
+          <td>
             {% if ex in table.exercises[repo] %}
               <a href="https://github.com/exercism/{{ repo }}/tree/master/{{ ex }}">
                 <span class="glyphicon glyphicon-ok"></span>

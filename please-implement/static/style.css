@@ -9,3 +9,7 @@ thead th, tfoot th, td, #footer .row {
 thead th, tfoot th {
 	white-space: nowrap;
 }
+
+td {
+	vertical-align: middle !important;
+}
